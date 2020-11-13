@@ -1,5 +1,7 @@
-*.mode1v3
-*.perspectivev3
-*.pbxuser
 .DS_Store
+.idea
+*.log
+tmp/
+
+
 build/

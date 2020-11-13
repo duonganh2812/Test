@@ -1,6 +1,0 @@
-<dbMap>
-    <!-- SQLite‚ð—˜—p‚·‚é‚½‚ß‚ÌÝ’è -->
-    <db name="AuthorizationDB" version="1.0" database="sqlite" displayName="Authorization database" size="200000" />
-    <!-- SQLCipher‚ð—˜—p‚·‚é‚½‚ß‚ÌÝ’è -->
-    <!--<db name="AuthorizationDB" version="1.0" database="sqlcipher" displayName="Authorization database" size="200000" passwordLength="30" />-->
-</dbMap>

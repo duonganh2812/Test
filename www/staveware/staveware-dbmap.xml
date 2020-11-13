@@ -1,8 +1,0 @@
-<dbMap>
-    <!-- SQLiteを利用するための設定 -->
-    <db name="SampleApp" version="1.0" database="sqlite" displayName="Sample database" size="200000"/>
-    <db name="OfflineAuthenticate" version="1.0" database="sqlite" displayName="Offline authenticate database" size="200000"/>
-    <!-- SQLCipherを利用するための設定 -->
-    <!--<db name="SampleApp" version="1.0" database="sqlcipher" displayName="Sample database" size="200000" passwordLength="30"/>-->
-    <!--<db name="OfflineAuthenticate" version="1.0" database="sqlcipher" displayName="Offline authenticate database" size="200000" passwordLength="30"/>-->
-</dbMap>
