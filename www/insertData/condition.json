@@ -1,0 +1,17 @@
+[{
+        "CONDITION_ID": "I_CONDITION_23",
+        "CONDITION_CODE": "taglib_Regular_condition",
+        "RULE_ID": "I_RULE_23",
+        "VALUE_TYPE": "week",
+        "EVAL_TYPE": "week",
+        "VALUE": "Sun,Mon,Tue,Wed,Thu,Fri,Sat"
+    },
+    {
+        "CONDITION_ID": "I_CONDITION_01",
+        "CONDITION_CODE": "filter_001_condition",
+        "RULE_ID": "I_RULE_01",
+        "VALUE_TYPE": "term",
+        "EVAL_TYPE": "term",
+        "VALUE": "2009/08/01/12-2050/10/31/12"
+    }
+]

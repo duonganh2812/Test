@@ -1,0 +1,11 @@
+[{
+        "RULE_ID": "I_RULE_23",
+        "RULE_CODE": "rule_taglib_Regular",
+        "POLICY_ID": "policy__taglib__role__member"
+    },
+    {
+        "RULE_ID": "I_RULE_01",
+        "RULE_CODE": "rule_filter_001",
+        "POLICY_ID": "policy_filter_001"
+    }
+]

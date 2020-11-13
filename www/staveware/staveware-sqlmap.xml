@@ -1,0 +1,224 @@
+<sqlMap>
+	<sql id="dropTableProduct">
+		DROP TABLE IF EXISTS STVWEBSTORE_PRODUCT
+	</sql>
+	
+    <sql id="createTableProduct" >		
+        CREATE TABLE IF NOT EXISTS STVWEBSTORE_PRODUCT (
+            productId          text NOT NULL,
+            productName        text NOT NULL,
+            productPrice       integer  NOT NULL,
+            productCategory    text NOT NULL,
+            productPicture     text,
+            productImageBase64   text,
+            PRIMARY KEY(productId)
+        );
+    </sql>
+
+	<select id="selectAllProduct" >
+        SELECT * FROM STVWEBSTORE_PRODUCT
+    </select>
+	
+    <select id="selectProductByKey" >
+        SELECT * FROM STVWEBSTORE_PRODUCT WHERE productId = ?
+    </select>
+
+     <select id="selectProductByCategory" >
+        SELECT * FROM STVWEBSTORE_PRODUCT WHERE productCategory = ?
+    </select>
+
+    <insert id="insertProduct" >
+        INSERT INTO STVWEBSTORE_PRODUCT (productId, productName, productPrice, productCategory, productPicture, productImageBase64) VALUES (?, ?, ?, ?, ?, ?)
+    </insert>
+	
+	<update id="updateProduct" >
+        UPDATE STVWEBSTORE_PRODUCT SET
+        productName = ?,
+        productPrice = ?,
+        productCategory = ?
+        WHERE productId = ?
+    </update>
+
+	<delete id="deleteProduct">
+        DELETE FROM STVWEBSTORE_PRODUCT WHERE productId = ?
+    </delete>
+
+    <delete id="deleteAllProduct">
+        DELETE FROM STVWEBSTORE_PRODUCT
+    </delete>
+	
+	<!-- For Queue function -->
+    <!-- For QUEUE_DATA table -->
+    <sql id="deleteQueueDataTable">
+        DROP TABLE IF EXISTS QUEUE_DATA
+    </sql>
+
+    <sql id="createQueueDataTable">
+        CREATE TABLE IF NOT EXISTS QUEUE_DATA (keyData, valueData)
+    </sql>
+    <insert id="insertQueueData" >
+        INSERT INTO QUEUE_DATA (keyData, valueData) VALUES (?, ?)
+    </insert>
+
+    <select id="selectQueueDataByKey">
+        SELECT * FROM QUEUE_DATA WHERE keyData = ?
+    </select>
+
+    <select id="selectAllQueueData">
+        SELECT * FROM QUEUE_DATA
+    </select>
+
+    <select id="selectNumberQueueData">
+        SELECT COUNT(*) AS queueSize FROM QUEUE_DATA
+    </select>
+
+    <delete id="deleteQueueDataByKey">
+        DELETE FROM QUEUE_DATA WHERE keyData = ?
+    </delete>
+
+    <delete id="deleteAllQueueData">
+        DELETE FROM QUEUE_DATA
+    </delete>
+
+    <!-- For FAILURE_DATA table -->
+    <sql id="deleteFailureDataTable">
+        DROP TABLE IF EXISTS FAILURE_DATA
+    </sql>
+
+    <sql id="createFailureDataTable">
+        CREATE TABLE IF NOT EXISTS FAILURE_DATA (keyData, valueData)
+    </sql>
+    <insert id="insertFailureData" >
+        INSERT INTO FAILURE_DATA (keyData, valueData) VALUES (?, ?)
+    </insert>
+
+    <select id="selectFailureDataByKey">
+        SELECT * FROM FAILURE_DATA WHERE keyData = ?
+    </select>
+
+    <select id="selectAllFailureData">
+        SELECT * FROM FAILURE_DATA
+    </select>
+
+    <select id="selectNumberFailureData">
+        SELECT COUNT(*) AS failSize FROM FAILURE_DATA
+    </select>
+
+    <delete id="deleteFailureDataByKey">
+        DELETE FROM FAILURE_DATA WHERE keyData = ?
+    </delete>
+
+    <delete id="deleteAllFailureData">
+        DELETE FROM FAILURE_DATA
+    </delete>
+	
+	 <!--LOGIN SQL-->
+    <sql id="createAccountTable">
+        CREATE TABLE IF NOT EXISTS ACCOUNT(ID TEXT(8) PRIMARY KEY, PASSWORD TEXT(20), VALID_END_TIME
+        INTEGER, EXPAND TEXT, ROLE TEXT)
+    </sql>
+
+    <!--update-->
+    <update id="updateAccount">
+        UPDATE ACCOUNT SET PASSWORD = ?, VALID_END_TIME = ?, EXPAND = ? WHERE ID = ?
+    </update>
+	
+    <update id="updateRole">
+        UPDATE ACCOUNT SET ROLE = ? WHERE ID = ?
+    </update>
+    <!--insert-->
+    <insert id="insertAccount">
+        INSERT INTO ACCOUNT (ID, PASSWORD, VALID_END_TIME, EXPAND) VALUES (?, ?, ?, ?)
+    </insert>
+
+    <!--delete-->
+    <delete id="deleteAccount">
+        DELETE FROM ACCOUNT WHERE ID = ?
+    </delete>
+
+    <!--select-->
+    <select id="selectAccount">
+        SELECT * FROM ACCOUNT WHERE ID = ?
+    </select>
+
+    <select id="selectAccountCount">
+        SELECT COUNT(ID) AS CID FROM ACCOUNT WHERE ID = ?
+    </select>
+
+    <select id="selectExpand">
+        SELECT EXPAND FROM ACCOUNT WHERE ID = ?
+    </select>
+	
+	<select id="selectRole">
+        SELECT ROLE FROM ACCOUNT WHERE ID = ?
+    </select>
+	
+	<!--Table Order and OrderDetail for Sync Function-->
+	<sql id="dropOrder">
+		DROP TABLE IF EXISTS STVMOBILE_ORDER
+	</sql>
+	
+	<sql id="createOrder">
+		CREATE TABLE IF NOT EXISTS STVMOBILE_ORDER(
+			orderId text NOT NULL,
+			userId text NOT NULL,
+			orderDate text NOT NULL,
+			totalPrice integer NOT NULL,
+			PRIMARY KEY(orderId)
+		);
+	</sql>
+	
+	<sql id="dropOrderDetail">
+		DROP TABLE IF EXISTS STVMOBILE_ORDER_DETAILS
+	</sql>
+	
+	<sql id="createOrderDetail">
+		CREATE TABLE IF NOT EXISTS STVMOBILE_ORDER_DETAILS(
+			orderId text NOT NULL,
+			productId text NOT NULL,
+			buyPrice integer NOT NULL,
+			buyNumber integer NOT NULL,
+			PRIMARY KEY(orderId,productId)
+		);
+	</sql>
+	
+	<insert id="insertOrder">
+		INSERT INTO STVMOBILE_ORDER(orderId,userId,orderDate,totalPrice) VALUES(?,?,?,?)
+	</insert>
+	
+	<insert id="insertOrderDetail">
+		INSERT INTO STVMOBILE_ORDER_DETAILS(orderId, productId, buyPrice, buyNumber) VALUES(?,?,?,?)
+	</insert>
+	
+	<select id="selectAllOrderByUser">
+		SELECT * FROM STVMOBILE_ORDER WHERE userId = ? ORDER BY orderId
+	</select>
+	
+	<select id="selectOrderDetailByOrderId">
+		SELECT * FROM STVMOBILE_ORDER_DETAILS WHERE orderId = ?
+	</select>
+	
+	<delete id="deleteOrder">
+		DELETE FROM STVMOBILE_ORDER WHERE orderId = ?
+	</delete>
+	
+	<delete id="deleteOrderDetail">
+		DELETE FROM STVMOBILE_ORDER_DETAILS WHERE orderId = ?
+	</delete>
+	
+	<update id="updateOrder">
+		UPDATE STVMOBILE_ORDER SET totalPrice = ? WHERE orderId = ?
+	</update>
+	
+	<update id="updateOrderId">
+		UPDATE STVMOBILE_ORDER SET orderId = ? WHERE orderId = ?
+	</update>
+	
+	<update id="updateOrderDetail">
+		UPDATE STVMOBILE_ORDER_DETAILS SET buyNumber = ? WHERE orderId = ? AND productId = ?
+	</update>
+	
+	<update id="updateOrderIdInDetail">
+		UPDATE STVMOBILE_ORDER_DETAILS SET orderId = ? WHERE orderId = ?
+	</update>
+</sqlMap>
